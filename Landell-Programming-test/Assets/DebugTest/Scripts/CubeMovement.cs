@@ -1,38 +1,55 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Random = System.Random;
+using Random = UnityEngine.Random;
 
 public class CubeMovement : MonoBehaviour
 {
-    private Rigidbody RB;
+    private Rigidbody _rb;
+
+    private CubeManager _manager;
+    
+    [Header("Properties")] [SerializeField]
+    private float _sphereRadius = 5f;
+    
+    [SerializeField] 
+    private float _sphereOffset = 5f;
+    
+    [SerializeField] 
+    private float _speed = 5f;
+    private void Awake()
+    {
+        _rb = GetComponent<Rigidbody>();
+        _manager = CubeManager.Instance;
+    }
+
     private void Update()
     {
-        if (RB == null)
-        {
-            RB = GetComponent<Rigidbody>();
-        }
+        _rb.AddForce(new Vector3(Random.Range(-_speed,_speed),Random.Range(-_speed,_speed),Random.Range(-_speed,_speed)));
+
+        var hits = Physics.OverlapSphere(transform.position + Vector3.forward * _sphereOffset, _sphereRadius);
         
-        RB.AddForce(new Vector3(new Random().Next(-5,5),new Random().Next(-5,5),new Random().Next(-5,5)));
-
-        RaycastHit hitinfo;
-        Physics.SphereCast(new Ray(transform.position, Vector3.forward),5, out hitinfo);
-
-        if (!hitinfo.transform.CompareTag(this.tag))
+        foreach (var hit in hits)
         {
-            Destroy(this);
+            if(hit.gameObject == gameObject)
+                break;
+            _manager.ReSpawnCube();
+            Destroy(hit.gameObject);
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Rigidbody rb = GetComponent<Rigidbody>();
-            rb.AddForce(new Vector3(0,100,0));
+            _rb.AddForce(new Vector3(0,100,0));
         }
-        
-        
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position+ Vector3.forward * 5, 5);
+
+        if (transform.position.y <= -20)
+        {
+            _manager.ReSpawnCube();
+            Destroy(gameObject);
+        }
     }
-    
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position+ Vector3.forward * _sphereOffset, _sphereRadius);
+    }
 }

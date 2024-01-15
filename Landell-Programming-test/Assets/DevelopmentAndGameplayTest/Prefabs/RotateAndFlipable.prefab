@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3038500436107918895}
   - component: {fileID: 1296045154436454635}
   - component: {fileID: 6016408727897002957}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: RotateAndFlipable
   m_TagString: Untagged
   m_Icon: {fileID: 0}

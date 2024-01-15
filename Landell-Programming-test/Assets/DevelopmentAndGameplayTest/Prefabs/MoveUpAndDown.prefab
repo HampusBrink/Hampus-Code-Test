@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 107345296855205796}
   - component: {fileID: 989197739210904770}
   - component: {fileID: 1157421964784844101}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: MoveUpAndDown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isActivated: 1
   _speed: 5
-  _isSpecifiedDistance: 0
+  _isAutoDistance: 0
   _maxUpDistance: 2
   _maxDownDistance: -1
 --- !u!23 &989197739210904770
