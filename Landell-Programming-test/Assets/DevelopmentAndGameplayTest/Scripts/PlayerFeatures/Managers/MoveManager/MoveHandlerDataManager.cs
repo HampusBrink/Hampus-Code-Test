@@ -14,6 +14,7 @@ public static class MoveHandlerDataManager
     public static event Action<bool> OnRun;
     public static event Action<Vector2> OnLook;
     
+    
 
 
     #endregion
@@ -26,7 +27,6 @@ public static class MoveHandlerDataManager
     public static void Jump(this MoveInputManager moveInputManager) => OnJump?.Invoke();
     public static void Run(this MoveInputManager moveInputManager, bool isPressed) => OnRun?.Invoke(isPressed);
     public static void Look(this MoveInputManager moveInputManager, Vector2 lookDir) => OnLook?.Invoke(lookDir);
-    
     #endregion
 
 }

@@ -20,7 +20,7 @@ public class MoveInputManager : MonoBehaviour
     
     private void OnRun(InputValue value)
     {
-        this.Run(value.Get<float>() > 0);
+        this.Run(value.isPressed);
     }
 
     private void OnLook(InputValue value)
